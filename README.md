@@ -1,7 +1,7 @@
 # StudyHall
 Assignment Management App for Students
 
-Features Implemented:
+### Features Implemented:
 - Splash Page
 - Custom Calendar
 - CoreData Relationships
