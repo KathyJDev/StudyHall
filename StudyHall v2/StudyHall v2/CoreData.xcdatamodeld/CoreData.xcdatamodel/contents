@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="19574" systemVersion="21C52" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+    <entity name="Assignments" representedClassName=".Assignments" syncable="YES">
+        <attribute name="assignCompleted" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
+        <attribute name="assignDate" optional="YES" attributeType="Date" usesScalarValueType="NO"/>
+        <attribute name="assignid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="assignName" optional="YES" attributeType="String"/>
+        <relationship name="assignmentToDeveloper" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Developer" inverseName="developerToAssignment" inverseEntity="Developer"/>
+    </entity>
+    <entity name="Developer" representedClassName=".Developer" syncable="YES">
+        <attribute name="descriptions" optional="YES" attributeType="String"/>
+        <attribute name="icon" optional="YES" attributeType="String"/>
+        <attribute name="imageD" optional="YES" attributeType="Binary"/>
+        <attribute name="userid" optional="YES" attributeType="UUID" usesScalarValueType="NO"/>
+        <attribute name="username" optional="YES" attributeType="String"/>
+        <relationship name="developerToAssignment" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Assignments" inverseName="assignmentToDeveloper" inverseEntity="Assignments"/>
+    </entity>
+    <elements>
+        <element name="Assignments" positionX="-63" positionY="9" width="128" height="104"/>
+        <element name="Developer" positionX="-63" positionY="-18" width="128" height="119"/>
+    </elements>
+</model>
