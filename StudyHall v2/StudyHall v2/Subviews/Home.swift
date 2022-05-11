@@ -132,7 +132,6 @@ struct HomeView: View{
     @State var selectedTab = 0
     @State var show: Bool = false
     
-    
     // Checking dates
     func isSameDay(date1: Date, date2: Date)->Bool{
         let calendar = Calendar.current
@@ -171,7 +170,7 @@ struct HomeView: View{
                     
                     HStack{
                     
-                        Text("Due this Week")
+                        Text("Due Today")
                             .font(Font.custom(FontNameManager.Montserrat.bold, size: 18))
                             .padding()
                         Spacer(minLength: 0)
@@ -184,11 +183,10 @@ struct HomeView: View{
                     }
                     VStack{
                         if let currentClass = currentClass, showAssignmentView {
-                            if (currentClass.assignmentArray.first(where: { task in
-                            return isSameDay(date1: task.assignDate ?? Date(), date2: currentDate)
-                        }) != nil) {
+                            
                             List{
                                 ForEach(currentClass.assignmentArray) {assign in
+                                   if isSameDay(date1: assign.assignDate ?? Date(), date2: currentDate) {
                                 VStack {
                                     HStack {
                                         Button(action : {
@@ -240,7 +238,7 @@ struct HomeView: View{
                                         }
                                         
                                         else {
-                                            let diffs = Calendar.current.dateComponents([.day], from: currentDate, to: assign.assignDate ?? Date())
+                                            let diffs = Calendar.current.dateComponents([.day], from: Date(), to: assign.assignDate ?? Date())
                                             
                                             Text("\(diffs.day!) days left")
                                                 .font(Font.custom(FontNameManager.Montserrat.semibold, size: 12))
@@ -258,17 +256,16 @@ struct HomeView: View{
                                         .padding()
                                         }
                                 }.listRowSeparator(.hidden)
-                            
+                                    }
                                 }.onDelete(perform: delete)
                             
                             }.listStyle(InsetListStyle())
+                        
                         }
-                        }
-                        else if (assignment.first(where: { task in
-                            return isSameDay(date1: currentDate, date2: task.assignDate ?? Date())
-                        }) != nil) {
+                        else if showAssignmentView == false {
                             List{
                                 ForEach(assignment) {assign in
+                                    if isSameDay(date1: assign.assignDate ?? Date(), date2: currentDate) {
                                 VStack {
                                     HStack {
                                         Button(action : {
@@ -320,7 +317,7 @@ struct HomeView: View{
                                         }
                                         
                                         else {
-                                            let diffs = Calendar.current.dateComponents([.day], from: currentDate, to: assign.assignDate ?? Date())
+                                            let diffs = Calendar.current.dateComponents([.day], from: Date(), to: assign.assignDate ?? Date())
                                             
                                             Text("\(diffs.day!) days left")
                                                 .font(Font.custom(FontNameManager.Montserrat.semibold, size: 12))
@@ -338,9 +335,9 @@ struct HomeView: View{
                                         .padding()
                                         }
                                 }.listRowSeparator(.hidden)
-                            
+                                    }
                                 }.onDelete(perform: delete)
-                            
+                                
                             }.listStyle(InsetListStyle())
                         }
                         else{
